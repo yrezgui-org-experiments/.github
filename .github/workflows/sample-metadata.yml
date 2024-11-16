@@ -19,8 +19,8 @@ jobs:
         /orgs/${{ github.repository_owner }}/properties/values?repository_query=archived:false \
         --verbose \
         --paginate \
-        --jq '[.[] | select(.properties[] | select(.property_name == "content_types" and .value[] == "sample"))]' \
-        > repos.json
+        # --jq '[.[] | select(.properties[] | select(.property_name == "content_types" and .value[] == "sample"))]' \
+        # > repos.json
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Save repositories list
