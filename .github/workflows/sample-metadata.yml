@@ -1,7 +1,7 @@
 name: Sample Metadata
 
 on: workflow_dispatch
-permissions: read-all
+permissions: write-all
 
 jobs:
   # We query all repositories in
