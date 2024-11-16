@@ -23,7 +23,7 @@ jobs:
     - name: Save full repositories list
       uses: actions/upload-artifact@v4
       with:
-        name: repositories-list
+        name: repositories-full
         path: repos_full.json
     - name: Query all repositories containing samples
       run: |
