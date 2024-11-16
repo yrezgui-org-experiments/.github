@@ -1,0 +1,28 @@
+name: Sample Metadata
+
+on: workflow_dispatch
+
+jobs:
+  # We query all repositories in
+  query_repositories:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Query all repositories containing samples
+      run: |
+        gh api \
+        -H "Accept: application/vnd.github+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        /orgs/${{ github.repository_owner }}/properties/values?repository_query=archived:false \
+        --paginate \
+        --jq '[.[] | select(.properties[] | select(.property_name == "content_types" and .value[] == "sample"))]' \
+        > repos.json
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Save repositories list
+      uses: actions/upload-artifact@v4
+      with:
+        name: repositories-list
+        path: repos.json
